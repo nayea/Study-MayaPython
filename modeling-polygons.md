@@ -150,7 +150,25 @@ cmds.polyPipe( sh=10, h=20 )
 cmds.polyPipe( n='myPipe', sc=5);
 ```
 
-## 8. polyCreateFacet
+## 8. polyPlane
+
+![](.gitbook/assets/polyplane.png)
+
+polyPlane\(\[[axis](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyPlane.html#flagaxis)=\[linear, linear, linear\]\], \[[constructionHistory](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyPlane.html#flagconstructionHistory)=boolean\], \[[createUVs](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyPlane.html#flagcreateUVs)=int\], \[[height](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyPlane.html#flagheight)=linear\], \[[name](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyPlane.html#flagname)=string\], \[[object](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyPlane.html#flagobject)=boolean\], \[[subdivisionsX](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyPlane.html#flagsubdivisionsX)=int\], \[[subdivisionsY](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyPlane.html#flagsubdivisionsY)=int\], \[[texture](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyPlane.html#flagtexture)=int\], \[[width](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyPlane.html#flagwidth)=linear\]\)
+
+```python
+import maya.cmds as cmds
+
+# Create a mesh (plane), with 10 subdivisions in the X direction,
+# 15 subdivisions in the Y direction,
+# the width of the mesh is 15, the height of the mesh is 20.
+cmds.polyPlane( sx=10, sy=15, w=15, h=20)
+
+# Create a mesh, called "myPlane", on each direction there are 5 subdivisions.
+cmds.polyPlane(n='myPlane', sx=5, sy=5)
+```
+
+## 9. polyCreateFacet
 
 Create a new polygonal object with the specified face, which will be closed. List of arguments must have at least 3 points.
 
@@ -163,5 +181,106 @@ import maya.cmds as cmds
 
 # Create a triangular facet
 cmds.polyCreateFacet( p=[(0.0, 0.0, 0.0), (10.0, 0.0, 0.0), (10.0, 10.0, 0.0)] )
+```
+
+## 10. polyAppend
+
+Appends a new face to the selected polygonal object. The first argument must be a border edge. The new face will be automatically closed. Only works with one object selected.
+
+polyAppend\(\[[append](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyAppend.html#flagappend)=\[\[, float, float, float, \]\]\], \[[constructionHistory](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyAppend.html#flagconstructionHistory)=boolean\], \[[edge](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyAppend.html#flagedge)=int\], \[[hole](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyAppend.html#flaghole)=boolean\], \[[name](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyAppend.html#flagname)=string\], \[[point](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyAppend.html#flagpoint)=\[float, float, float\]\], \[[subdivision](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyAppend.html#flagsubdivision)=int\], \[[texture](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyAppend.html#flagtexture)=int\]\)
+
+```python
+import maya.cmds as cmds
+
+cmds.polyCreateFacet( p=[(0, 0, 0), (10, 0, 0), (10, 10, 0), (0, 10, 0)] )
+
+#add a new triangular facet described by the edge #0, and a free point
+cmds.polyAppend( a=[0, (5, -5, 0)] )
+
+#add a new quadrangular facet with 2 triangular holes.
+cmds.polyAppend( a=[1, (20, 0, 0), (20, 10, 0), (), (12, 6, 0), (14, 5, 0), (12, 4, 0), (), (16, 5, 0), (18, 6, 0), (18, 4, 0)] )
+```
+
+## 11. polyExtrudeFacet
+
+Extrude faces. Faces can be extruded separately or together, and manipulations can be performed either in world or object space.
+
+polyExtrudeFacet\(\[[attraction](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeFacet.html#flagattraction)=float\], \[[caching](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeFacet.html#flagcaching)=boolean\], \[[constructionHistory](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeFacet.html#flagconstructionHistory)=boolean\], \[[divisions](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeFacet.html#flagdivisions)=int\], \[[gravity](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeFacet.html#flaggravity)=\[linear, linear, linear\]\], \[[gravityX](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeFacet.html#flaggravityX)=linear\], \[[gravityY](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeFacet.html#flaggravityY)=linear\], \[[gravityZ](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeFacet.html#flaggravityZ)=linear\], \[[inputCurve](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeFacet.html#flaginputCurve)=name\], \[[keepFacesTogether](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeFacet.html#flagkeepFacesTogether)=boolean\], \[[localDirection](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeFacet.html#flaglocalDirection)=\[linear, linear, linear\]\], \[[localDirectionX](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeFacet.html#flaglocalDirectionX)=linear\], \[[localDirectionY](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeFacet.html#flaglocalDirectionY)=linear\], \[[localDirectionZ](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeFacet.html#flaglocalDirectionZ)=linear\], \[[localRotate](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeFacet.html#flaglocalRotate)=\[angle, angle, angle\]\], \[[localRotateX](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeFacet.html#flaglocalRotateX)=angle\], \[[localRotateY](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeFacet.html#flaglocalRotateY)=angle\], \[[localRotateZ](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeFacet.html#flaglocalRotateZ)=angle\], \[[localScale](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeFacet.html#flaglocalScale)=\[float, float, float\]\], \[[localScaleX](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeFacet.html#flaglocalScaleX)=float\], \[[localScaleY](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeFacet.html#flaglocalScaleY)=float\], \[[localScaleZ](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeFacet.html#flaglocalScaleZ)=float\], \[[localTranslate](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeFacet.html#flaglocalTranslate)=\[linear, linear, linear\]\], \[[localTranslateX](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeFacet.html#flaglocalTranslateX)=linear\], \[[localTranslateY](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeFacet.html#flaglocalTranslateY)=linear\], \[[localTranslateZ](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeFacet.html#flaglocalTranslateZ)=linear\], \[[magnX](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeFacet.html#flagmagnX)=linear\], \[[magnY](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeFacet.html#flagmagnY)=linear\], \[[magnet](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeFacet.html#flagmagnet)=\[linear, linear, linear\]\], \[[name](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeFacet.html#flagname)=string\], \[[nodeState](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeFacet.html#flagnodeState)=int\], \[[offset](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeFacet.html#flagoffset)=float\], \[[pivot](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeFacet.html#flagpivot)=\[linear, linear, linear\]\], \[[pivotX](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeFacet.html#flagpivotX)=linear\], \[[pivotY](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeFacet.html#flagpivotY)=linear\], \[[pivotZ](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeFacet.html#flagpivotZ)=linear\], \[[random](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeFacet.html#flagrandom)=float\], \[[rotate](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeFacet.html#flagrotate)=\[angle, angle, angle\]\], \[[rotateX](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeFacet.html#flagrotateX)=angle\], \[[rotateY](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeFacet.html#flagrotateY)=angle\], \[[rotateZ](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeFacet.html#flagrotateZ)=angle\], \[[scale](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeFacet.html#flagscale)=\[float, float, float\]\], \[[scaleX](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeFacet.html#flagscaleX)=float\], \[[scaleY](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeFacet.html#flagscaleY)=float\], \[[scaleZ](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeFacet.html#flagscaleZ)=float\], \[[smoothingAngle](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeFacet.html#flagsmoothingAngle)=angle\], \[[translate](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeFacet.html#flagtranslate)=\[linear, linear, linear\]\], \[[translateX](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeFacet.html#flagtranslateX)=linear\], \[[translateY](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeFacet.html#flagtranslateY)=linear\], \[[translateZ](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeFacet.html#flagtranslateZ)=linear\], \[[weight](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeFacet.html#flagweight)=float\], \[[worldSpace](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeFacet.html#flagworldSpace)=boolean\]\)
+
+```python
+import maya.cmds as cmds
+
+# Separate
+cmds.polyPlane( n='plg', w=10, h=10 )
+cmds.polyExtrudeFacet( 'plg.f[71:72]', 'plg.f[81:82]', kft=False, ltz=2, ls=(.5, .5, 0) )
+# Facets are extruded then scaled separately
+
+# Together
+cmds.polyExtrudeFacet( 'plg.f[17:18]', 'plg.f[27:28]', kft=True, ltz=2, ls=(.5, .5, 0) )
+# Facets are extruded then scaled together
+```
+
+## 12. polyExtrudeEdge
+
+Extrude edges separately or together.
+
+polyExtrudeEdge\(\[[caching](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeEdge.html#flagcaching)=boolean\], \[[constructionHistory](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeEdge.html#flagconstructionHistory)=boolean\], \[[divisions](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeEdge.html#flagdivisions)=int\], \[[inputCurve](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeEdge.html#flaginputCurve)=name\], \[[keepFacesTogether](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeEdge.html#flagkeepFacesTogether)=boolean\], \[[localDirection](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeEdge.html#flaglocalDirection)=\[linear, linear, linear\]\], \[[localDirectionX](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeEdge.html#flaglocalDirectionX)=linear\], \[[localDirectionY](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeEdge.html#flaglocalDirectionY)=linear\], \[[localDirectionZ](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeEdge.html#flaglocalDirectionZ)=linear\], \[[localRotate](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeEdge.html#flaglocalRotate)=\[angle, angle, angle\]\], \[[localRotateX](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeEdge.html#flaglocalRotateX)=angle\], \[[localRotateY](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeEdge.html#flaglocalRotateY)=angle\], \[[localRotateZ](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeEdge.html#flaglocalRotateZ)=angle\], \[[localScale](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeEdge.html#flaglocalScale)=\[float, float, float\]\], \[[localScaleX](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeEdge.html#flaglocalScaleX)=float\], \[[localScaleY](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeEdge.html#flaglocalScaleY)=float\], \[[localScaleZ](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeEdge.html#flaglocalScaleZ)=float\], \[[localTranslate](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeEdge.html#flaglocalTranslate)=\[linear, linear, linear\]\], \[[localTranslateX](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeEdge.html#flaglocalTranslateX)=linear\], \[[localTranslateY](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeEdge.html#flaglocalTranslateY)=linear\], \[[localTranslateZ](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeEdge.html#flaglocalTranslateZ)=linear\], \[[name](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeEdge.html#flagname)=string\], \[[nodeState](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeEdge.html#flagnodeState)=int\], \[[pivot](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeEdge.html#flagpivot)=\[linear, linear, linear\]\], \[[pivotX](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeEdge.html#flagpivotX)=linear\], \[[pivotY](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeEdge.html#flagpivotY)=linear\], \[[pivotZ](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeEdge.html#flagpivotZ)=linear\], \[[random](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeEdge.html#flagrandom)=float\], \[[rotate](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeEdge.html#flagrotate)=\[angle, angle, angle\]\], \[[rotateX](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeEdge.html#flagrotateX)=angle\], \[[rotateY](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeEdge.html#flagrotateY)=angle\], \[[rotateZ](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeEdge.html#flagrotateZ)=angle\], \[[scale](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeEdge.html#flagscale)=\[float, float, float\]\], \[[scaleX](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeEdge.html#flagscaleX)=float\], \[[scaleY](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeEdge.html#flagscaleY)=float\], \[[scaleZ](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeEdge.html#flagscaleZ)=float\], \[[smoothingAngle](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeEdge.html#flagsmoothingAngle)=angle\], \[[translate](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeEdge.html#flagtranslate)=\[linear, linear, linear\]\], \[[translateX](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeEdge.html#flagtranslateX)=linear\], \[[translateY](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeEdge.html#flagtranslateY)=linear\], \[[translateZ](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeEdge.html#flagtranslateZ)=linear\], \[[worldSpace](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyExtrudeEdge.html#flagworldSpace)=boolean\]\)
+
+```python
+import maya.cmds as cmds
+
+# Separate
+cmds.polyPlane( n='plg', w=10, h=10 )
+cmds.polyExtrudeEdge( 'plg.e[71:72]', 'plg.e[81:82]', kft=False,, ltz=2, ls=(.5, .5, 0) )
+# Edges are extruded then scaled separately
+cmds.delete( 'plg' )
+
+
+# Together
+cmds.polyPlane( n='plg', w=10, h=10 )
+cmds.polyExtrudeEdge( 'plg.e[71:72]', 'plg.e[81:82]', kft=True, ltz=2, ls=(.5, .5, 0) )
+# Edges are extruded then scaled together
+cmds.delete( 'plg' )
+```
+
+## 13. polyMergeVertex
+
+Merge vertices within a given threshold.  
+Since this allows merging any vertices that lie on the same object it is possible for the resulting geometry to be non-manifold.  
+First, perform comparison of pairs of selected vertices. Pairs that lie within given distance of one another are merged, along with the edge between them.  
+Second, any selected vertices which share an edge are merged if the distance between them is within the specified distance.  
+Unlike Merge Edges, Merge Vertices will perform the merge even if the edges adjoining the vertices do not have matching orientation \(i.e. normals of adjacent faces do not point in the same direction\). As this restriction is not enforced while merging vertices, resulting geometry can be non-manifold.  
+If alwaysMergeTwoVertices is set and there are only two vertices, tolerance is ignored and the vertices will be merged.  
+Resulting mesh may have extra vertices or edges to ensure geometry is valid.
+
+polyMergeVertex\(\[[alwaysMergeTwoVertices](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyMergeVertex.html#flagalwaysMergeTwoVertices)=boolean\], \[[caching](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyMergeVertex.html#flagcaching)=boolean\], \[[constructionHistory](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyMergeVertex.html#flagconstructionHistory)=boolean\], \[[distance](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyMergeVertex.html#flagdistance)=linear\], \[[mergeToComponents](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyMergeVertex.html#flagmergeToComponents)=string\], \[[name](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyMergeVertex.html#flagname)=string\], \[[nodeState](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyMergeVertex.html#flagnodeState)=int\], \[[texture](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyMergeVertex.html#flagtexture)=boolean\]\)
+
+```python
+import maya.cmds as cmds
+
+cmds.polyPlane( sx=5, sy=5, n='plg1' )
+cmds.polyPlane( sx=5, sy=5, n='plg2' )
+cmds.move( 0.55, 0, -1.25, 'plg1', ws=True )
+cmds.move( -0.55, 0, -1.25, 'plg2', ws=True )
+cmds.polyPlane( sx=5, sy=5, n='plg3' )
+cmds.polyPlane( sx=5, sy=5, n='plg4' )
+cmds.polyPlane( sx=5, sy=5, n='plg5' )
+cmds.move( 0.55, 0, 1.25, 'plg4', ws=True )
+cmds.move( -0.55, 0, 1.25, 'plg5', ws=True )
+
+# First method:
+cmds.polyUnite( 'plg1Shape', 'plg2Shape' )
+cmds.select( 'polySurface1.vtx[6]', 'polySurface1.vtx[12]', 'polySurface1.vtx[18]', 'polySurface1.vtx[24]', 'polySurface1.vtx[47]', 'polySurface1.vtx[53]', 'polySurface1.vtx[59]', 'polySurface1.vtx[65]', r=True )
+cmds.polyMergeVertex( d=0.15 )
+
+# Second method:
+cmds.polyMergeVertex( 'plg3.vtx[24]', 'plg3.vtx[30:31]', 'plg3.vtx[8:10]', 'plg3.vtx[14:16]', 'plg3.vtx[20:22]', d=0.25 )
+
+# To create non-manifold geometry:
+cmds.polyUnite( 'plg4Shape', 'plg5Shape' )
+cmds.select( 'polySurface2.vtx[0]', 'polySurface2.vtx[6]', 'polySurface2.vtx[12]', 'polySurface2.vtx[18]', 'polySurface2.vtx[24]', 'polySurface2.vtx[30]', 'polySurface2.vtx[41]', 'polySurface2.vtx[47]', 'polySurface2.vtx[53]', 'polySurface2.vtx[59]', 'polySurface2.vtx[65]', 'polySurface2.vtx[71]', r=True )
+cmds.polyMergeVertex( d=0.25 )
+# Note that there is only one vertex at this merged point and the
+# resulting polygonal object is non-manifold;()
 ```
 

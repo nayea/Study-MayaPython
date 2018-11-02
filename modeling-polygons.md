@@ -284,3 +284,30 @@ cmds.polyMergeVertex( d=0.25 )
 # resulting polygonal object is non-manifold;()
 ```
 
+## 14. polyTriangulate
+
+Triangulation breaks polygons down into triangles, ensuring that all faces are planar and non-holed. Triangulation of models can be beneficial in many areas.
+
+polyTriangulate\(\[[caching](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyTriangulate.html#flagcaching)=boolean\], \[[constructionHistory](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyTriangulate.html#flagconstructionHistory)=boolean\], \[[name](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyTriangulate.html#flagname)=string\], \[[nodeState](http://download.autodesk.com/us/maya/2011help/CommandsPython/polyTriangulate.html#flagnodeState)=int\]\)
+
+```python
+import maya.cmds as cmds
+
+# Non-planar faces
+cmds.polyPlane( n='plg1', sx=5, sy=5, w=5, h=5 )
+cmds.move( -6, 0, 0 )
+cmds.polyMoveVertex( 'plg1.vtx[7]', 'plg1.vtx[10]', 'plg1.vtx[25]', 'plg1.vtx[28]', ltz=1 )
+cmds.polyTriangulate( 'plg1.f[0:1]', 'plg1.f[5:6]', 'plg1.f[3:4]', 'plg1.f[8:9]', 'plg1.f[15:16]', 'plg1.f[20:21]', 'plg1.f[18:19]', 'plg1.f[23:24]' )
+
+# Holed faces
+maya.cmds.polyCreateFacet( p=[(2.5, 0, 2.5), (2.5, 0, -2.5), (-2.5, 0, -2.5), (-2.5, 0, 2.5), (), (1, 0, -1), (-1, 0, -1), (-1, 0, 1), (1, 0, 1)],  n='plg2' )
+cmds.polyTriangulate( 'plg2.f[0]' )
+
+# Both holed and non-planar facets
+cmds.polyPlane( n='plg3', sx=3, sy=3, h=5, w=5 )
+cmds.move( 6, 0, 0 )
+cmds.polyChipOff( 'plg3.f[4]', dup=1, ltz=1, ls=(.25, .25, .25) )
+cmds.polyMergeFacet( 'plg3', ch=True, ff=4, sf=9 )
+cmds.polyTriangulate( 'plg3.f[4]' )
+```
+

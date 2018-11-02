@@ -1,4 +1,4 @@
-# 1. Modeling-Polygons
+# 1. Modeling-Polygon Meshes
 
 ## 1. PolySphere
 

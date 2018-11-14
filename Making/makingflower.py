@@ -1,4 +1,4 @@
-```python
+
 import maya.cmds as cmds;
 import random;
 
@@ -38,5 +38,3 @@ def leave(rotXnum) :
     
 for a in range (8):        
     leave(a)
-    
-```
